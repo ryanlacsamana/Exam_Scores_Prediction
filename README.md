@@ -75,3 +75,208 @@ df = pd.read_csv("/kaggle/input/students-exam-scores/Expanded_data_with_more_fea
 
 df.head(10)
 ```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>Gender</th>
+      <th>EthnicGroup</th>
+      <th>ParentEduc</th>
+      <th>LunchType</th>
+      <th>TestPrep</th>
+      <th>ParentMaritalStatus</th>
+      <th>PracticeSport</th>
+      <th>IsFirstChild</th>
+      <th>NrSiblings</th>
+      <th>TransportMeans</th>
+      <th>WklyStudyHours</th>
+      <th>MathScore</th>
+      <th>ReadingScore</th>
+      <th>WritingScore</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>bachelor's degree</td>
+      <td>standard</td>
+      <td>none</td>
+      <td>married</td>
+      <td>regularly</td>
+      <td>yes</td>
+      <td>3.0</td>
+      <td>school_bus</td>
+      <td>&lt; 5</td>
+      <td>71</td>
+      <td>71</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>female</td>
+      <td>group C</td>
+      <td>some college</td>
+      <td>standard</td>
+      <td>NaN</td>
+      <td>married</td>
+      <td>sometimes</td>
+      <td>yes</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>5 - 10</td>
+      <td>69</td>
+      <td>90</td>
+      <td>88</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>female</td>
+      <td>group B</td>
+      <td>master's degree</td>
+      <td>standard</td>
+      <td>none</td>
+      <td>single</td>
+      <td>sometimes</td>
+      <td>yes</td>
+      <td>4.0</td>
+      <td>school_bus</td>
+      <td>&lt; 5</td>
+      <td>87</td>
+      <td>93</td>
+      <td>91</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>male</td>
+      <td>group A</td>
+      <td>associate's degree</td>
+      <td>free/reduced</td>
+      <td>none</td>
+      <td>married</td>
+      <td>never</td>
+      <td>no</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>5 - 10</td>
+      <td>45</td>
+      <td>56</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>male</td>
+      <td>group C</td>
+      <td>some college</td>
+      <td>standard</td>
+      <td>none</td>
+      <td>married</td>
+      <td>sometimes</td>
+      <td>yes</td>
+      <td>0.0</td>
+      <td>school_bus</td>
+      <td>5 - 10</td>
+      <td>76</td>
+      <td>78</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>female</td>
+      <td>group B</td>
+      <td>associate's degree</td>
+      <td>standard</td>
+      <td>none</td>
+      <td>married</td>
+      <td>regularly</td>
+      <td>yes</td>
+      <td>1.0</td>
+      <td>school_bus</td>
+      <td>5 - 10</td>
+      <td>73</td>
+      <td>84</td>
+      <td>79</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>female</td>
+      <td>group B</td>
+      <td>some college</td>
+      <td>standard</td>
+      <td>completed</td>
+      <td>widowed</td>
+      <td>never</td>
+      <td>no</td>
+      <td>1.0</td>
+      <td>private</td>
+      <td>5 - 10</td>
+      <td>85</td>
+      <td>93</td>
+      <td>89</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>7</td>
+      <td>male</td>
+      <td>group B</td>
+      <td>some college</td>
+      <td>free/reduced</td>
+      <td>none</td>
+      <td>married</td>
+      <td>sometimes</td>
+      <td>yes</td>
+      <td>1.0</td>
+      <td>private</td>
+      <td>&gt; 10</td>
+      <td>41</td>
+      <td>43</td>
+      <td>39</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>8</td>
+      <td>male</td>
+      <td>group D</td>
+      <td>high school</td>
+      <td>free/reduced</td>
+      <td>completed</td>
+      <td>single</td>
+      <td>sometimes</td>
+      <td>no</td>
+      <td>3.0</td>
+      <td>private</td>
+      <td>&gt; 10</td>
+      <td>65</td>
+      <td>64</td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>9</td>
+      <td>female</td>
+      <td>group B</td>
+      <td>high school</td>
+      <td>free/reduced</td>
+      <td>none</td>
+      <td>married</td>
+      <td>regularly</td>
+      <td>yes</td>
+      <td>NaN</td>
+      <td>private</td>
+      <td>&lt; 5</td>
+      <td>37</td>
+      <td>59</td>
+      <td>50</td>
+    </tr>
+  </tbody>
+</table>
+</div>
