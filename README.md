@@ -582,3 +582,168 @@ df1b['is_first_child'] = df1b['is_first_child'].fillna(df1b['is_first_child'].mo
 
 df1b.isnull().sum()
 ```
+```
+gender                   0
+ethnic_group             0
+parents_education        0
+lunch_type               0
+test_preparation         0
+parent_marital_status    0
+practice_sports          0
+is_first_child           0
+number_of_siblings       0
+transport_means          0
+weekly_study_hours       0
+math_score               0
+reading_score            0
+writing_score            0
+dtype: int64
+```
+```
+df1b.info()
+```
+```
+<class 'pandas.core.frame.DataFrame'>
+Index: 21721 entries, 2 to 30640
+Data columns (total 14 columns):
+ #   Column                 Non-Null Count  Dtype 
+---  ------                 --------------  ----- 
+ 0   gender                 21721 non-null  object
+ 1   ethnic_group           21721 non-null  object
+ 2   parents_education      21721 non-null  object
+ 3   lunch_type             21721 non-null  object
+ 4   test_preparation       21721 non-null  object
+ 5   parent_marital_status  21721 non-null  object
+ 6   practice_sports        21721 non-null  object
+ 7   is_first_child         21721 non-null  object
+ 8   number_of_siblings     21721 non-null  Int64 
+ 9   transport_means        21721 non-null  object
+ 10  weekly_study_hours     21721 non-null  object
+ 11  math_score             21721 non-null  int64 
+ 12  reading_score          21721 non-null  int64 
+ 13  writing_score          21721 non-null  int64 
+dtypes: Int64(1), int64(3), object(10)
+memory usage: 2.5+ MB
+```
+
+#### **Compare the descriptive statistics of the two datasets**
+```
+descriptive_stats = pd.concat([df.describe(), df1b.describe()], axis=1, keys=['Dataset with Removed Null Values','Dataset with Mode Imputation'])
+
+descriptive_stats
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="4" halign="left">Dataset with Removed Null Values</th>
+      <th colspan="4" halign="left">Dataset with Mode Imputation</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>number_of_siblings</th>
+      <th>math_score</th>
+      <th>reading_score</th>
+      <th>writing_score</th>
+      <th>number_of_siblings</th>
+      <th>math_score</th>
+      <th>reading_score</th>
+      <th>writing_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>29069.0</td>
+      <td>30641.000000</td>
+      <td>30641.000000</td>
+      <td>30641.000000</td>
+      <td>21721.0</td>
+      <td>21721.000000</td>
+      <td>21721.000000</td>
+      <td>21721.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>2.145894</td>
+      <td>66.558402</td>
+      <td>69.377533</td>
+      <td>68.418622</td>
+      <td>2.140785</td>
+      <td>66.589844</td>
+      <td>69.467152</td>
+      <td>68.534736</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.458242</td>
+      <td>15.361616</td>
+      <td>14.758952</td>
+      <td>15.443525</td>
+      <td>1.447413</td>
+      <td>15.382437</td>
+      <td>14.787346</td>
+      <td>15.488860</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>10.000000</td>
+      <td>4.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>10.000000</td>
+      <td>4.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>1.0</td>
+      <td>56.000000</td>
+      <td>59.000000</td>
+      <td>58.000000</td>
+      <td>1.0</td>
+      <td>56.000000</td>
+      <td>59.000000</td>
+      <td>58.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>2.0</td>
+      <td>67.000000</td>
+      <td>70.000000</td>
+      <td>69.000000</td>
+      <td>2.0</td>
+      <td>67.000000</td>
+      <td>70.000000</td>
+      <td>69.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>3.0</td>
+      <td>78.000000</td>
+      <td>80.000000</td>
+      <td>79.000000</td>
+      <td>3.0</td>
+      <td>78.000000</td>
+      <td>80.000000</td>
+      <td>79.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>7.0</td>
+      <td>100.000000</td>
+      <td>100.000000</td>
+      <td>100.000000</td>
+      <td>7.0</td>
+      <td>100.000000</td>
+      <td>100.000000</td>
+      <td>100.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+Based on the descriptive statistics from the resulting datasets from the two methods, the statistic values for the dataset with mode imputations applied varies from the dataset with all null values removed by a very small amount (less than 1.00).
+
+With this result, we will proceed on using the dataset obtained from mode imputation as it contains more data compared to the dataset with all null values removed.
