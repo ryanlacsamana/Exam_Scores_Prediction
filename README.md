@@ -24,3 +24,54 @@ WklyStudyHours | Weekly self-study hours(less than 5hrs, between 5 and 10 hrs, m
 MathScore | Math test score (0-100) |
 ReadingScore | Reading test score (0-100) |
 WritingScore | Writing test score (0-100) |
+
+### **Preparation**
+
+```
+## For data manipulation
+
+import numpy as np
+import pandas as pd
+
+## For data visualization
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+## For displaying all columns in the dataframe
+
+pd.set_option('display.max_columns', None)
+
+## For statistical tests
+
+from scipy import stats
+
+## For data modelling
+
+import xgboost as xgb
+from xgboost import XGBRegressor
+from xgboost import plot_importance
+from sklearn.linear_model import LinearRegression
+import statsmodels.api as sm
+
+## For metrics and helpful functions
+
+from sklearn.model_selection import GridSearchCV, train_test_split, cross_val_predict, cross_val_score
+from sklearn.metrics import make_scorer, mean_squared_error
+from sklearn.model_selection import RepeatedKFold
+
+## Miscellaneous
+
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+```
+
+### **DATA CLEANING**
+
+```
+## Load the dataset
+
+df = pd.read_csv("/kaggle/input/students-exam-scores/Expanded_data_with_more_features.csv")
+
+df.head(10)
+```
