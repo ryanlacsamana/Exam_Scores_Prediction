@@ -353,6 +353,7 @@ df['NrSiblings'] = df['NrSiblings'].astype('Int64')
 
 df['NrSiblings'].info()
 ```
+
 ```
 <class 'pandas.core.series.Series'>
 RangeIndex: 30641 entries, 0 to 30640
