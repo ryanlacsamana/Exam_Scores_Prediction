@@ -293,6 +293,7 @@ The dataset contains 30,641 rows and 15 columns.
 
 df.info()
 ```
+```
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 30641 entries, 0 to 30640
 Data columns (total 15 columns):
@@ -315,7 +316,7 @@ Data columns (total 15 columns):
  14  WritingScore         30641 non-null  int64  
 dtypes: float64(1), int64(4), object(10)
 memory usage: 3.5+ MB
-
+```
 #### **Check for null values**
 ```
 ## Check the number of null values for each variable in the dataset
@@ -506,6 +507,7 @@ df1 = df.dropna(axis=0)
 
 df1.info()
 ```
+```
 <class 'pandas.core.frame.DataFrame'>
 Index: 19243 entries, 2 to 30640
 Data columns (total 14 columns):
@@ -527,7 +529,7 @@ Data columns (total 14 columns):
  13  writing_score          19243 non-null  int64 
 dtypes: Int64(1), int64(3), object(10)
 memory usage: 2.2+ MB
-
+```
 #### **Method 1B: Removing null values from specified columns**
 
 To avoid over-representation of certain data, the limit for the number of null values in which imputation will be used will be set to 5.0% of the total number of data in a certain column.
@@ -541,4 +543,42 @@ df1b = df.copy()
 df1b = df1b.dropna(subset=['ethnic_group','parents_education','test_preparation','number_of_siblings','transport_means'], axis=0)
 
 df1b.info()
+```
+```
+<class 'pandas.core.frame.DataFrame'>
+Index: 21721 entries, 2 to 30640
+Data columns (total 14 columns):
+ #   Column                 Non-Null Count  Dtype 
+---  ------                 --------------  ----- 
+ 0   gender                 21721 non-null  object
+ 1   ethnic_group           21721 non-null  object
+ 2   parents_education      21721 non-null  object
+ 3   lunch_type             21721 non-null  object
+ 4   test_preparation       21721 non-null  object
+ 5   parent_marital_status  20883 non-null  object
+ 6   practice_sports        21298 non-null  object
+ 7   is_first_child         21094 non-null  object
+ 8   number_of_siblings     21721 non-null  Int64 
+ 9   transport_means        21721 non-null  object
+ 10  weekly_study_hours     21038 non-null  object
+ 11  math_score             21721 non-null  int64 
+ 12  reading_score          21721 non-null  int64 
+ 13  writing_score          21721 non-null  int64 
+dtypes: Int64(1), int64(3), object(10)
+memory usage: 2.5+ MB
+```
+#### **Method 2: Use Mode Imputation**
+The values for the columns with null data are contains categorical and binary data. To avoid over-representing certain data, we set a limit to null values equal to or less than 5.0% of the total number of data in their respective column. The columns with null values that exceeded the limit had all their null values dropped.
+```
+## Mode imputation for categorical columns
+
+df1b['parent_marital_status'] = df1b['parent_marital_status'].fillna(df1b['parent_marital_status'].mode()[0])
+df1b['practice_sports'] = df1b['practice_sports'].fillna(df1b['practice_sports'].mode()[0])
+df1b['weekly_study_hours'] = df1b['weekly_study_hours'].fillna(df1b['weekly_study_hours'].mode()[0])
+
+## Mode imputation for binary columns
+
+df1b['is_first_child'] = df1b['is_first_child'].fillna(df1b['is_first_child'].mode()[0])
+
+df1b.isnull().sum()
 ```
