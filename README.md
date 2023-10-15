@@ -353,6 +353,7 @@ df['NrSiblings'] = df['NrSiblings'].astype('Int64')
 
 df['NrSiblings'].info()
 ```
+```
 <class 'pandas.core.series.Series'>
 RangeIndex: 30641 entries, 0 to 30640
 Series name: NrSiblings
@@ -361,6 +362,7 @@ Non-Null Count  Dtype
 29069 non-null  Int64
 dtypes: Int64(1)
 memory usage: 269.4 KB
+```
 ```
 ## Removed the 'Unnamed' column
 
