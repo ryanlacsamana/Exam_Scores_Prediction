@@ -280,3 +280,265 @@ df.head(10)
   </tbody>
 </table>
 </div>
+
+```
+## Check the size of the dataset
+
+print(df.shape)
+```
+(30641, 15)
+The dataset contains 30,641 rows and 15 columns.
+```
+## Check information about the dataset
+
+df.info()
+```
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 30641 entries, 0 to 30640
+Data columns (total 15 columns):
+ #   Column               Non-Null Count  Dtype  
+---  ------               --------------  -----  
+ 0   Unnamed: 0           30641 non-null  int64  
+ 1   Gender               30641 non-null  object 
+ 2   EthnicGroup          28801 non-null  object 
+ 3   ParentEduc           28796 non-null  object 
+ 4   LunchType            30641 non-null  object 
+ 5   TestPrep             28811 non-null  object 
+ 6   ParentMaritalStatus  29451 non-null  object 
+ 7   PracticeSport        30010 non-null  object 
+ 8   IsFirstChild         29737 non-null  object 
+ 9   NrSiblings           29069 non-null  float64
+ 10  TransportMeans       27507 non-null  object 
+ 11  WklyStudyHours       29686 non-null  object 
+ 12  MathScore            30641 non-null  int64  
+ 13  ReadingScore         30641 non-null  int64  
+ 14  WritingScore         30641 non-null  int64  
+dtypes: float64(1), int64(4), object(10)
+memory usage: 3.5+ MB
+
+#### **Check for null values**
+```
+## Check the number of null values for each variable in the dataset
+
+for col in df.columns:
+    print('Null Values for column {} is {}%'.format(col, np.round(df[col].isnull().sum()*100 / len(df[col])),2))
+```
+Null Values for column Unnamed: 0 is 0.0%
+Null Values for column Gender is 0.0%
+Null Values for column EthnicGroup is 6.0%
+Null Values for column ParentEduc is 6.0%
+Null Values for column LunchType is 0.0%
+Null Values for column TestPrep is 6.0%
+Null Values for column ParentMaritalStatus is 4.0%
+Null Values for column PracticeSport is 2.0%
+Null Values for column IsFirstChild is 3.0%
+Null Values for column NrSiblings is 5.0%
+Null Values for column TransportMeans is 10.0%
+Null Values for column WklyStudyHours is 3.0%
+Null Values for column MathScore is 0.0%
+Null Values for column ReadingScore is 0.0%
+Null Values for column WritingScore is 0.0%
+
+Some columns have null values. However, we will check the best method to handle those missing values.
+
+Also, the Dtype for the column NrSiblings is float64. This is not the correct datatype because the column contains discrete variables. The datatype for this column should be changed to **int64**.
+
+#### **Converting datatypes, renaming columns, and removing unnecessary columns**
+```
+## Changing the datatype of 'NrSiblings' into int64
+
+df['NrSiblings'] = pd.to_numeric(df['NrSiblings'], downcast='integer', errors='coerce')
+df['NrSiblings'] = df['NrSiblings'].astype('Int64')
+
+df['NrSiblings'].info()
+```
+<class 'pandas.core.series.Series'>
+RangeIndex: 30641 entries, 0 to 30640
+Series name: NrSiblings
+Non-Null Count  Dtype
+--------------  -----
+29069 non-null  Int64
+dtypes: Int64(1)
+memory usage: 269.4 KB
+```
+## Removed the 'Unnamed' column
+
+df = df.drop('Unnamed: 0', axis=1)
+```
+```
+## Change column names to 'snake_case'
+
+df.rename(columns={'Gender':'gender',
+                   'EthnicGroup':'ethnic_group',
+                   'ParentEduc':'parents_education',
+                   'LunchType':'lunch_type',
+                   'TestPrep':'test_preparation',
+                   'ParentMaritalStatus':'parent_marital_status',
+                   'PracticeSport':'practice_sports',
+                   'IsFirstChild':'is_first_child',
+                   'NrSiblings':'number_of_siblings',
+                   'TransportMeans':'transport_means',
+                   'WklyStudyHours':'weekly_study_hours',
+                   'MathScore':'math_score',
+                   'ReadingScore':'reading_score',
+                   'WritingScore':'writing_score'}, inplace=True)
+
+df.head()
+```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gender</th>
+      <th>ethnic_group</th>
+      <th>parents_education</th>
+      <th>lunch_type</th>
+      <th>test_preparation</th>
+      <th>parent_marital_status</th>
+      <th>practice_sports</th>
+      <th>is_first_child</th>
+      <th>number_of_siblings</th>
+      <th>transport_means</th>
+      <th>weekly_study_hours</th>
+      <th>math_score</th>
+      <th>reading_score</th>
+      <th>writing_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>female</td>
+      <td>NaN</td>
+      <td>bachelor's degree</td>
+      <td>standard</td>
+      <td>none</td>
+      <td>married</td>
+      <td>regularly</td>
+      <td>yes</td>
+      <td>3</td>
+      <td>school_bus</td>
+      <td>&lt; 5</td>
+      <td>71</td>
+      <td>71</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>female</td>
+      <td>group C</td>
+      <td>some college</td>
+      <td>standard</td>
+      <td>NaN</td>
+      <td>married</td>
+      <td>sometimes</td>
+      <td>yes</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>5 - 10</td>
+      <td>69</td>
+      <td>90</td>
+      <td>88</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>female</td>
+      <td>group B</td>
+      <td>master's degree</td>
+      <td>standard</td>
+      <td>none</td>
+      <td>single</td>
+      <td>sometimes</td>
+      <td>yes</td>
+      <td>4</td>
+      <td>school_bus</td>
+      <td>&lt; 5</td>
+      <td>87</td>
+      <td>93</td>
+      <td>91</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>male</td>
+      <td>group A</td>
+      <td>associate's degree</td>
+      <td>free/reduced</td>
+      <td>none</td>
+      <td>married</td>
+      <td>never</td>
+      <td>no</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>5 - 10</td>
+      <td>45</td>
+      <td>56</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>male</td>
+      <td>group C</td>
+      <td>some college</td>
+      <td>standard</td>
+      <td>none</td>
+      <td>married</td>
+      <td>sometimes</td>
+      <td>yes</td>
+      <td>0</td>
+      <td>school_bus</td>
+      <td>5 - 10</td>
+      <td>76</td>
+      <td>78</td>
+      <td>75</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+### **Handling Missing Data**
+The method for handling missing data will be either by removing the null values, or by imputation.
+
+#### **Method 1A: Removing null values in the dataset**
+```
+## Drop null values from all columns
+
+df1 = df.dropna(axis=0)
+
+df1.info()
+```
+<class 'pandas.core.frame.DataFrame'>
+Index: 19243 entries, 2 to 30640
+Data columns (total 14 columns):
+ #   Column                 Non-Null Count  Dtype 
+---  ------                 --------------  ----- 
+ 0   gender                 19243 non-null  object
+ 1   ethnic_group           19243 non-null  object
+ 2   parents_education      19243 non-null  object
+ 3   lunch_type             19243 non-null  object
+ 4   test_preparation       19243 non-null  object
+ 5   parent_marital_status  19243 non-null  object
+ 6   practice_sports        19243 non-null  object
+ 7   is_first_child         19243 non-null  object
+ 8   number_of_siblings     19243 non-null  Int64 
+ 9   transport_means        19243 non-null  object
+ 10  weekly_study_hours     19243 non-null  object
+ 11  math_score             19243 non-null  int64 
+ 12  reading_score          19243 non-null  int64 
+ 13  writing_score          19243 non-null  int64 
+dtypes: Int64(1), int64(3), object(10)
+memory usage: 2.2+ MB
+
+#### **Method 1B: Removing null values from specified columns**
+
+To avoid over-representation of certain data, the limit for the number of null values in which imputation will be used will be set to 5.0% of the total number of data in a certain column.
+
+The columns EthnicGroup, ParentEduc, TestPrep, and TransportMeans contains null values that are more than 5.0% of the total number of data in their respective column. We will remove null values from this columns before proceeding with imputation.
+```
+## Drop null values from selected columns
+
+df1b = df.copy()
+
+df1b = df1b.dropna(subset=['ethnic_group','parents_education','test_preparation','number_of_siblings','transport_means'], axis=0)
+
+df1b.info()
+```
