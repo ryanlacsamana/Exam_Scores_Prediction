@@ -1988,9 +1988,13 @@ print('RMSE Value for Math Scores:', rmse_math)
 print('RMSE Value for Reading Scores:', rmse_reading)
 print('RMSE Value for Writing Scores:', rmse_writing)
 ```
+
 RMSE Value for Math Scores: 12.994796880123351
+
 RMSE Value for Reading Scores: 14.740659354449292
+
 RMSE Value for Writing Scores: 14.90092506353194
+
 ```
 ## Create a scatterplot to visualize actual versus predicted scores
 
