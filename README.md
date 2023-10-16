@@ -819,7 +819,9 @@ df1b.groupby(['gender'])[['math_score','reading_score','writing_score']].agg(['m
   </tbody>
 </table>
 </div>
+
   - There are more female than male students. The difference is quite small as the female students are only 261 (1.20%) more than the male students.
+    
   - Male students generally score higher in Math, while female students generally score higher in Reading and Writing.
 
 #### **2. Ethnic Group**
@@ -910,9 +912,12 @@ df1b.groupby(['ethnic_group'])[['math_score','reading_score','writing_score']].a
   </tbody>
 </table>
 </div>
-- Students from Ethnic Group E have the highest scores from the 3 subjects.
-- The hierarchy of students based on exam scores is the same from all the 3 subjects - 1. group E, 2. group D, 3. group C, 4. group B, 5. group A (from highest to lowest). This is true for both the mean and median scores.
-- There seems to be a clear correlation between the ethnic group and the exam scores.
+
+  - Students from Ethnic Group E have the highest scores from the 3 subjects.
+    
+  - The hierarchy of students based on exam scores is the same from all the 3 subjects - 1. group E, 2. group D, 3. group C, 4. group B, 5. group A (from highest to lowest). This is true for both the mean and median scores.
+    
+  - There seems to be a clear correlation between the ethnic group and the exam scores.
 
 #### **3. Parent's Educational Background**
 ```
