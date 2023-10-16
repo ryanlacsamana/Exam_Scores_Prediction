@@ -930,3 +930,699 @@ plt.show()
 
 df1b.groupby(['parents_education'])[['math_score','writing_score','reading_score']].agg(['mean','median'])
 ```
+![image](https://github.com/ryanlacsamana/Exam_Scores_Prediction/assets/138304188/b353b7cf-3df1-4817-b9ab-9664fc194880)
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">math_score</th>
+      <th colspan="2" halign="left">writing_score</th>
+      <th colspan="2" halign="left">reading_score</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+    </tr>
+    <tr>
+      <th>parents_education</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>associate's degree</th>
+      <td>68.477651</td>
+      <td>69.0</td>
+      <td>70.403947</td>
+      <td>71.0</td>
+      <td>71.159534</td>
+      <td>71.0</td>
+    </tr>
+    <tr>
+      <th>bachelor's degree</th>
+      <td>70.691892</td>
+      <td>71.0</td>
+      <td>73.737452</td>
+      <td>74.0</td>
+      <td>73.440154</td>
+      <td>74.0</td>
+    </tr>
+    <tr>
+      <th>high school</th>
+      <td>64.262652</td>
+      <td>64.0</td>
+      <td>65.410965</td>
+      <td>66.0</td>
+      <td>67.183693</td>
+      <td>68.0</td>
+    </tr>
+    <tr>
+      <th>master's degree</th>
+      <td>72.284500</td>
+      <td>73.0</td>
+      <td>76.335513</td>
+      <td>77.0</td>
+      <td>75.785481</td>
+      <td>77.0</td>
+    </tr>
+    <tr>
+      <th>some college</th>
+      <td>66.507113</td>
+      <td>66.0</td>
+      <td>68.603086</td>
+      <td>69.0</td>
+      <td>69.285314</td>
+      <td>70.0</td>
+    </tr>
+    <tr>
+      <th>some high school</th>
+      <td>62.498429</td>
+      <td>63.0</td>
+      <td>63.634276</td>
+      <td>64.0</td>
+      <td>65.499154</td>
+      <td>65.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+  - Students who have parents that obtained Master's Degree scored the highest in all three exams.
+    
+  - The hierarchy of students based on exam scores is the same for all the 3 subjects- 1. master's degree, 2. bachelor's degree, 3. associate's degree, 4. some college, 5. some highschool (from highest to lowest). This is true for both the mean and median scores.
+    
+  - There is a correlation between the exam scores of the students and their parent's highest educational attainment. This is because students with parents who have a degree scored higher than students who have parents without a degree.
+    
+#### **4. Lunch Type**
+```
+plt.subplots(1,1, figsize=(5,3))
+
+sns.countplot(data=df1b, x='lunch_type')
+
+plt.show()
+
+df1b.groupby(['lunch_type'])[['math_score','reading_score','writing_score']].agg(['mean','median'])
+```
+![image](https://github.com/ryanlacsamana/Exam_Scores_Prediction/assets/138304188/fd042afb-83e9-4413-8f08-0224689d4fb7)
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">math_score</th>
+      <th colspan="2" halign="left">reading_score</th>
+      <th colspan="2" halign="left">writing_score</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+    </tr>
+    <tr>
+      <th>lunch_type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>free/reduced</th>
+      <td>58.879832</td>
+      <td>59.0</td>
+      <td>64.245577</td>
+      <td>64.0</td>
+      <td>62.746298</td>
+      <td>63.0</td>
+    </tr>
+    <tr>
+      <th>standard</th>
+      <td>70.765507</td>
+      <td>71.0</td>
+      <td>72.295103</td>
+      <td>73.0</td>
+      <td>71.669695</td>
+      <td>72.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+  - Students who have standard lunch type scored higher than the students with free/reduced lunch type. The difference is quite noticeable especially for the Math exam.
+    
+  - There are more students that have standard lunch type.
+    
+  - The type of lunch a student has seems to affect their exam scores for the 3 subjects. It seems like student who enjoyed better food tend to perform better in exams.
+    
+#### **5. Test Preparation**
+```
+plt.subplots(1,1, figsize=(5,3))
+
+sns.countplot(data=df1b, x='test_preparation')
+
+plt.show()
+
+df1b.groupby(['test_preparation'])[['math_score','reading_score','writing_score']].agg(['mean','median'])
+```
+![image](https://github.com/ryanlacsamana/Exam_Scores_Prediction/assets/138304188/aa52c594-2d07-4374-b8b5-5a2f6cdf8d20)
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">math_score</th>
+      <th colspan="2" halign="left">reading_score</th>
+      <th colspan="2" halign="left">writing_score</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+    </tr>
+    <tr>
+      <th>test_preparation</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>completed</th>
+      <td>69.681842</td>
+      <td>70.0</td>
+      <td>73.863950</td>
+      <td>74.0</td>
+      <td>74.860499</td>
+      <td>75.0</td>
+    </tr>
+    <tr>
+      <th>none</th>
+      <td>64.947840</td>
+      <td>65.0</td>
+      <td>67.132234</td>
+      <td>67.0</td>
+      <td>65.175442</td>
+      <td>65.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+  - Students who prepared for the exam better for all the subjects compared to students with no preparation.
+
+  - However, there are more students who do not prepare for the exams, as shown in the plot.
+
+#### **6. Parent's Marital Status**
+```
+plt.subplots(1,1, figsize=(5,3))
+
+sns.countplot(data=df1b, x='parent_marital_status')
+
+plt.show()
+
+df1b.groupby(['parent_marital_status'])[['math_score','reading_score','writing_score']].agg(['mean','median'])
+```
+![image](https://github.com/ryanlacsamana/Exam_Scores_Prediction/assets/138304188/1e688795-ca1e-43d2-abfa-c48c979a4b62)
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">math_score</th>
+      <th colspan="2" halign="left">reading_score</th>
+      <th colspan="2" halign="left">writing_score</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+    </tr>
+    <tr>
+      <th>parent_marital_status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>divorced</th>
+      <td>66.652371</td>
+      <td>67.0</td>
+      <td>69.700085</td>
+      <td>70.0</td>
+      <td>68.879012</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>married</th>
+      <td>66.666536</td>
+      <td>67.0</td>
+      <td>69.429912</td>
+      <td>70.0</td>
+      <td>68.447669</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>single</th>
+      <td>66.246203</td>
+      <td>66.0</td>
+      <td>69.320344</td>
+      <td>70.0</td>
+      <td>68.446243</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>widowed</th>
+      <td>67.849515</td>
+      <td>69.0</td>
+      <td>70.415049</td>
+      <td>71.0</td>
+      <td>69.368932</td>
+      <td>70.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+  - Students who have widowed parents scored better that the other students.
+
+  - The difference in scores for all the variables is very small. There seems to be little to no correlation between the exam scores and the marital status of the student's parents.
+
+#### **7. Practice Sports**
+```
+plt.subplots(1,1, figsize=(5,3))
+
+sns.countplot(data=df1b, x='practice_sports')
+
+plt.show()
+
+df1b.groupby(['practice_sports'])[['math_score','reading_score','writing_score']].agg(['mean','median'])
+```
+![image](https://github.com/ryanlacsamana/Exam_Scores_Prediction/assets/138304188/20ece306-e2a9-4834-b215-bfefca3ff0ea)
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">math_score</th>
+      <th colspan="2" halign="left">reading_score</th>
+      <th colspan="2" halign="left">writing_score</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+    </tr>
+    <tr>
+      <th>practice_sports</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>never</th>
+      <td>64.487848</td>
+      <td>65.0</td>
+      <td>68.651638</td>
+      <td>69.0</td>
+      <td>66.876717</td>
+      <td>67.0</td>
+    </tr>
+    <tr>
+      <th>regularly</th>
+      <td>67.677549</td>
+      <td>68.0</td>
+      <td>69.946020</td>
+      <td>70.0</td>
+      <td>69.638918</td>
+      <td>70.0</td>
+    </tr>
+    <tr>
+      <th>sometimes</th>
+      <td>66.375916</td>
+      <td>66.0</td>
+      <td>69.345096</td>
+      <td>70.0</td>
+      <td>68.196891</td>
+      <td>68.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+  - Students who regularly practice sports scored higher than other students.
+
+  - The difference between the mean and median scores for students who regularly practice sports and those who sometime practice it is very small. However, there is quite a noticeable difference from the results of the two variables compared to the exam scores obtained from students who never practice sports. This findings is true for Math and Writing score, but not for the Reading score.
+
+  - There seems to be a little correlation between the exam scores and whether a student practice sports or not. This is true for Math and Writing scores.
+
+#### **8. Is First Child?**
+```
+plt.subplots(1,1, figsize=(5,3))
+
+sns.countplot(data=df1b, x='is_first_child')
+
+plt.show()
+
+df1b.groupby(['is_first_child'])[['math_score','reading_score','writing_score']].agg(['mean','median'])
+```
+![image](https://github.com/ryanlacsamana/Exam_Scores_Prediction/assets/138304188/7f55d075-af89-4ab4-83ce-e72a174ccd2f)
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">math_score</th>
+      <th colspan="2" halign="left">reading_score</th>
+      <th colspan="2" halign="left">writing_score</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+    </tr>
+    <tr>
+      <th>is_first_child</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>no</th>
+      <td>66.418924</td>
+      <td>67.0</td>
+      <td>69.336848</td>
+      <td>70.0</td>
+      <td>68.483785</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>yes</th>
+      <td>66.679857</td>
+      <td>67.0</td>
+      <td>69.535775</td>
+      <td>70.0</td>
+      <td>68.561569</td>
+      <td>69.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+  - The exam scores for all three subjects between students who are first child and those who are not is quite similar. This means that whether a student is a first child or not does not contribute to their exam scores.
+
+#### **9. Number of Siblings**
+```
+plt.subplots(1,1, figsize=(5,3))
+
+sns.countplot(data=df1b, x='number_of_siblings')
+
+plt.show()
+
+df1b.groupby(['number_of_siblings'])[['math_score','reading_score','writing_score']].agg(['mean','median'])
+```
+![image](https://github.com/ryanlacsamana/Exam_Scores_Prediction/assets/138304188/08fc703e-fd81-4080-aa50-59f38e630d78)
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">math_score</th>
+      <th colspan="2" halign="left">reading_score</th>
+      <th colspan="2" halign="left">writing_score</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+    </tr>
+    <tr>
+      <th>number_of_siblings</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>66.673744</td>
+      <td>67.0</td>
+      <td>69.643847</td>
+      <td>70.0</td>
+      <td>68.766031</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>66.474546</td>
+      <td>67.0</td>
+      <td>69.331806</td>
+      <td>70.0</td>
+      <td>68.337698</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>66.568543</td>
+      <td>67.0</td>
+      <td>69.459698</td>
+      <td>70.0</td>
+      <td>68.540498</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>66.717838</td>
+      <td>67.0</td>
+      <td>69.512649</td>
+      <td>70.0</td>
+      <td>68.684757</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>66.341353</td>
+      <td>66.0</td>
+      <td>69.462097</td>
+      <td>70.0</td>
+      <td>68.474807</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>66.968880</td>
+      <td>67.0</td>
+      <td>69.680498</td>
+      <td>70.0</td>
+      <td>68.557054</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>66.717073</td>
+      <td>66.0</td>
+      <td>68.726829</td>
+      <td>70.0</td>
+      <td>67.643902</td>
+      <td>68.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>67.471154</td>
+      <td>69.0</td>
+      <td>70.447115</td>
+      <td>71.0</td>
+      <td>69.687500</td>
+      <td>70.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+  - Whether a students have more siblings or not does not affect their exam scores, as shown in the aggregate results. The mean and median of the exam results have very little difference between each variables.
+
+#### **10. Transport Means**
+```
+plt.subplots(1,1, figsize=(5,3))
+
+sns.countplot(data=df1b, x='transport_means')
+
+plt.show()
+
+df1b.groupby(['transport_means'])[['math_score','reading_score','writing_score']].agg(['mean','median'])
+```
+![image](https://github.com/ryanlacsamana/Exam_Scores_Prediction/assets/138304188/d05b0e16-6385-4727-a83b-31adffe5d07c)
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">math_score</th>
+      <th colspan="2" halign="left">reading_score</th>
+      <th colspan="2" halign="left">writing_score</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+    </tr>
+    <tr>
+      <th>transport_means</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>private</th>
+      <td>66.500947</td>
+      <td>67.0</td>
+      <td>69.469401</td>
+      <td>70.0</td>
+      <td>68.530487</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>school_bus</th>
+      <td>66.652392</td>
+      <td>67.0</td>
+      <td>69.465569</td>
+      <td>70.0</td>
+      <td>68.537725</td>
+      <td>69.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+  - There is also no correlation between the exam scores and the student's means of transportation. The mean and median scores for all the three exams scores are almost similar for each variable.
+
+#### **11. Weekly Study Hours**
+```
+plt.subplots(1,1, figsize=(5,3))
+
+sns.countplot(data=df1b, x='weekly_study_hours')
+
+plt.show()
+
+df1b.groupby(['weekly_study_hours'])[['math_score','reading_score','writing_score']].agg('mean','median')
+```
+![image](https://github.com/ryanlacsamana/Exam_Scores_Prediction/assets/138304188/d255111c-cf64-4088-8716-f4430b373a89)
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>math_score</th>
+      <th>reading_score</th>
+      <th>writing_score</th>
+    </tr>
+    <tr>
+      <th>weekly_study_hours</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5 - 10</th>
+      <td>66.904703</td>
+      <td>69.736183</td>
+      <td>68.760728</td>
+    </tr>
+    <tr>
+      <th>&lt; 5</th>
+      <td>64.601423</td>
+      <td>68.323674</td>
+      <td>67.255042</td>
+    </tr>
+    <tr>
+      <th>&gt; 10</th>
+      <td>68.740147</td>
+      <td>70.413428</td>
+      <td>69.841533</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+  - Students who studied more than 10 hours per week scored higher for all three exams.
+
+  - There is a correlation between exam scores and the weekly study hours of a student, as students who spent more time studying tend to get higher scores, and student who spent the least time studying scored the lowest.
+
+  - As shown in the plot, most students study for 5 to 10 hours per week.
+Before proceeding with the Model Building, we will exclude the variables that has no correlation with the exam scores. These variables are is_first_child, number_of_siblings, and transport_means.
+```
+## Drop 'is_first_child', 'number_of_siblings', and 'transport_means' columns
+
+df1b = df1b.drop(columns=['is_first_child','number_of_siblings','transport_means'], axis=1)
+```
