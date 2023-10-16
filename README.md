@@ -2013,3 +2013,127 @@ for i, (subj_score_name,(actual_score, predicted_score)) in enumerate(test_score
 plt.tight_layout()
 plt.show()
 ```
+![image](https://github.com/ryanlacsamana/Exam_Scores_Prediction/assets/138304188/e8f5a8f1-c394-4ba6-ae5b-55227b68f8d6)
+
+The **Root Mean Square Error (RMSE)** for the three exam scores are the following:
+
+- Math Scores: 13.000
+  
+- Reading Scores: 14.744
+  
+- Writing Scores: 14.904
+
+Which means that the predicted scores for each subject deviate from the actual scores by the RMSE value of that respective subject. It means that the predicted values for Math Scores are off by an average of 13.000 points from the actual values, 14.744 points for Reading Scores, and 14.984 points for Writing Scores.
+
+These are high values of errors considering we only have values of 0 to 100 for each exam scores.
+
+The results is also backed up by the scatterplots for each subjects, which shows that many points are scattered far from the best fit line. Which indicates a weak relationship between variables.
+```
+## Create a table showing comparison between actual and predicted values of test results
+
+comparison_table = pd.DataFrame({'Actual Math Score': y_math_train.values,
+                                 'Predicted Math Score': math_preds,
+                                 'Actual Reading Score': y_reading_train.values,
+                                 'Predicted Reading Score': reading_preds,
+                                 'Actual Writing Score': y_writing_train.values,
+                                 'Predicted Writing Score': writing_preds
+                                 })
+
+comparison_table.head()
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Actual Math Score</th>
+      <th>Predicted Math Score</th>
+      <th>Actual Reading Score</th>
+      <th>Predicted Reading Score</th>
+      <th>Actual Writing Score</th>
+      <th>Predicted Writing Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>69</td>
+      <td>70.787338</td>
+      <td>69</td>
+      <td>70.787338</td>
+      <td>70</td>
+      <td>70.787338</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>90</td>
+      <td>69.141335</td>
+      <td>80</td>
+      <td>69.141335</td>
+      <td>81</td>
+      <td>69.141335</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>79</td>
+      <td>77.691803</td>
+      <td>78</td>
+      <td>77.691803</td>
+      <td>70</td>
+      <td>77.691803</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>55</td>
+      <td>68.424431</td>
+      <td>58</td>
+      <td>68.424431</td>
+      <td>60</td>
+      <td>68.424431</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>40</td>
+      <td>59.363270</td>
+      <td>49</td>
+      <td>59.363270</td>
+      <td>53</td>
+      <td>59.363270</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+The predicted values showed huge variance from the actual scores for all subjects.
+
+#### **Feature Importance**
+```
+## Fit the models for each scores
+
+xgb_math.fit(predictor_var, target_math)
+xgb_reading.fit(predictor_var, target_reading)
+xgb_writing.fit(predictor_var, target_writing)
+
+## Plot feature importance for each scores
+
+fig, ax = plt.subplots(1,3, figsize=(21,5))
+
+xgb.plot_importance(xgb_math, importance_type='weight', title='Feature Importance for Math Scores', ax=ax[0])
+xgb.plot_importance(xgb_reading, importance_type='weight', title='Feature Importance for Reading Scores', ax=ax[1])
+xgb.plot_importance(xgb_writing, importance_type='weight', title='Feature Importance for Writing Scores', ax=ax[2])
+
+plt.tight_layout()
+plt.show()
+```
+![image](https://github.com/ryanlacsamana/Exam_Scores_Prediction/assets/138304188/815ad211-f483-42de-87ab-4a1178799f49)
+
+The three exam scores showed different feature importances. For the Math Scores, it seems like test preparation, gender, and number of study hours have the most weight. For the Reading Scores, gender, test preparation, and whether a student practice sports or not played the biggest role. For the Writing Scores, the lunch type, gender, and test preparation have the most weight.
+
+### **CONCLUSION**
+
+  - The model could use a lot of improvement in prediction as it returned a high value of error.
+
+  - There are variables that appear the most in the feature importance, these variables are test_preparation, gender, and lunch_type, weekly_study_hours, and practice_sports. The variable test_preparation could be an obvious variable to appear on the top of the feature importance. However, variables such as gender appeared on the top 3 feature importance for the three exams, which is quite questionable.
+
+  - In order to increase the model's performance, more sample data should be provided to increase the predictive ability of the model.
+
