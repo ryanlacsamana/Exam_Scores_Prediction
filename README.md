@@ -750,3 +750,73 @@ descriptive_stats
 Based on the descriptive statistics from the resulting datasets from the two methods, the statistic values for the dataset with mode imputations applied varies from the dataset with all null values removed by a very small amount (less than 1.00).
 
 With this result, we will proceed on using the dataset obtained from mode imputation as it contains more data compared to the dataset with all null values removed.
+
+### **EXPLORATORY DATA ANALYSIS (EDA)**
+
+#### **1. Gender**
+```
+plt.subplots(1,1, figsize=(5,3))
+
+sns.countplot(data=df1b, x='gender')
+
+tag = sns.countplot(data=df1b, x='gender')
+
+for i in tag.patches:
+    tag.annotate(f'{i.get_height()}', (i.get_x() + i.get_width() / 2., i.get_height() / 2), ha='center', va='bottom')
+
+plt.show()
+
+df1b.groupby(['gender'])[['math_score','reading_score','writing_score']].agg(['mean','median'])
+```
+![image](https://github.com/ryanlacsamana/Exam_Scores_Prediction/assets/138304188/587a0054-8d35-4997-8712-f6628510896e)
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">math_score</th>
+      <th colspan="2" halign="left">reading_score</th>
+      <th colspan="2" halign="left">writing_score</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+    </tr>
+    <tr>
+      <th>gender</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>female</th>
+      <td>64.162861</td>
+      <td>64.0</td>
+      <td>72.968247</td>
+      <td>73.0</td>
+      <td>72.980893</td>
+      <td>73.0</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>69.075862</td>
+      <td>69.0</td>
+      <td>65.880895</td>
+      <td>66.0</td>
+      <td>63.980429</td>
+      <td>64.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
