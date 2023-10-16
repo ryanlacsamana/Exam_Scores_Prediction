@@ -819,8 +819,8 @@ df1b.groupby(['gender'])[['math_score','reading_score','writing_score']].agg(['m
   </tbody>
 </table>
 </div>
-- There are more female than male students. The difference is quite small as the female students are only 261 (1.20%) more than the male students.
-- Male students generally score higher in Math, while female students generally score higher in Reading and Writing.
+  - There are more female than male students. The difference is quite small as the female students are only 261 (1.20%) more than the male students.
+  - Male students generally score higher in Math, while female students generally score higher in Reading and Writing.
 
 #### **2. Ethnic Group**
 ```
