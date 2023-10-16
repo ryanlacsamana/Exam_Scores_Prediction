@@ -1626,3 +1626,390 @@ Before proceeding with the Model Building, we will exclude the variables that ha
 
 df1b = df1b.drop(columns=['is_first_child','number_of_siblings','transport_means'], axis=1)
 ```
+
+### **MODEL BUILDING**
+
+#### **XGBoost Model**
+```
+## Create a copy of the dataset to be encoded
+
+df1b_enc = df1b.copy()
+
+df1b_enc.head()
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gender</th>
+      <th>ethnic_group</th>
+      <th>parents_education</th>
+      <th>lunch_type</th>
+      <th>test_preparation</th>
+      <th>parent_marital_status</th>
+      <th>practice_sports</th>
+      <th>weekly_study_hours</th>
+      <th>math_score</th>
+      <th>reading_score</th>
+      <th>writing_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>female</td>
+      <td>group B</td>
+      <td>master's degree</td>
+      <td>standard</td>
+      <td>none</td>
+      <td>single</td>
+      <td>sometimes</td>
+      <td>&lt; 5</td>
+      <td>87</td>
+      <td>93</td>
+      <td>91</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>male</td>
+      <td>group C</td>
+      <td>some college</td>
+      <td>standard</td>
+      <td>none</td>
+      <td>married</td>
+      <td>sometimes</td>
+      <td>5 - 10</td>
+      <td>76</td>
+      <td>78</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>female</td>
+      <td>group B</td>
+      <td>associate's degree</td>
+      <td>standard</td>
+      <td>none</td>
+      <td>married</td>
+      <td>regularly</td>
+      <td>5 - 10</td>
+      <td>73</td>
+      <td>84</td>
+      <td>79</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>female</td>
+      <td>group B</td>
+      <td>some college</td>
+      <td>standard</td>
+      <td>completed</td>
+      <td>widowed</td>
+      <td>never</td>
+      <td>5 - 10</td>
+      <td>85</td>
+      <td>93</td>
+      <td>89</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>male</td>
+      <td>group B</td>
+      <td>some college</td>
+      <td>free/reduced</td>
+      <td>none</td>
+      <td>married</td>
+      <td>sometimes</td>
+      <td>&gt; 10</td>
+      <td>41</td>
+      <td>43</td>
+      <td>39</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+For the new dataset, we will encode categorical variables.
+
+We will use dummy encode the following columns:
+
+  - ethnic_group, parents_education, parent_marital_status, practice_sports, and weekly_study_hours
+
+And convert the following columns into binary:
+
+  - gender, lunch_type, and test_preparation
+```
+## Define variables to dummy encode
+
+columns_to_encode = ['ethnic_group','parents_education','parent_marital_status','practice_sports','weekly_study_hours']
+
+for col in columns_to_encode:
+    df1b_enc = pd.get_dummies(data=df1b_enc, columns=[col], drop_first=True, dtype=int)
+    
+## Convert selected variables into binary
+    
+df1b_enc['gender'] = np.where(df1b_enc['gender']=='male',1,0)
+df1b_enc['lunch_type'] = np.where(df1b_enc['lunch_type']=='standard',1,0)
+df1b_enc['test_preparation'] = np.where(df1b_enc['test_preparation']=='completed',1,0)
+
+## Replace characters that could cause errors
+
+df1b_enc.columns = df1b_enc.columns.str.replace(' ', '_').str.replace("'","").str.replace('>','_more_than_').str.replace('<','_less_than_')
+    
+df1b_enc.head()
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gender</th>
+      <th>lunch_type</th>
+      <th>test_preparation</th>
+      <th>math_score</th>
+      <th>reading_score</th>
+      <th>writing_score</th>
+      <th>ethnic_group_group_B</th>
+      <th>ethnic_group_group_C</th>
+      <th>ethnic_group_group_D</th>
+      <th>ethnic_group_group_E</th>
+      <th>parents_education_bachelors_degree</th>
+      <th>parents_education_high_school</th>
+      <th>parents_education_masters_degree</th>
+      <th>parents_education_some_college</th>
+      <th>parents_education_some_high_school</th>
+      <th>parent_marital_status_married</th>
+      <th>parent_marital_status_single</th>
+      <th>parent_marital_status_widowed</th>
+      <th>practice_sports_regularly</th>
+      <th>practice_sports_sometimes</th>
+      <th>weekly_study_hours__less_than__5</th>
+      <th>weekly_study_hours__more_than__10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>87</td>
+      <td>93</td>
+      <td>91</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>76</td>
+      <td>78</td>
+      <td>75</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>73</td>
+      <td>84</td>
+      <td>79</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>85</td>
+      <td>93</td>
+      <td>89</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>41</td>
+      <td>43</td>
+      <td>39</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+#### **Split the data**
+```
+## Define the target variable
+
+target_var = df1b_enc[['math_score','reading_score','writing_score']]
+
+target_math = target_var['math_score']
+target_reading = target_var['reading_score']
+target_writing = target_var['writing_score']
+
+## Define the predictor variable
+
+predictor_var = df1b_enc.drop(['math_score','reading_score','writing_score'], axis=1)
+
+## Split into train and test sets
+
+X_train, X_test, y_math_train, y_math_test, y_reading_train, y_reading_test, y_writing_train, y_writing_test = train_test_split(predictor_var, target_math, 
+                                                                                                                                target_reading, target_writing,
+                                                                                                                                test_size=0.25, random_state=42)
+```
+#### **Cross-validated hyperparameter tuning**
+
+```
+## Create XGBoost models for each test scores
+
+xgb_math = XGBRegressor()
+xgb_reading = XGBRegressor()
+xgb_writing = XGBRegressor()
+
+## Hyperparameter tuning with GridSearch
+
+params = {'max_depth': [4,5,6,7,8], 
+          'min_child_weight': [1,2,3,4,5],
+          'learning_rate': [0.1, 0.2, 0.3],
+          'n_estimators': [75, 100, 125]
+          }
+
+scores = make_scorer(lambda y_true, y_pred: np.sqrt(mean_squared_error(y_true, y_pred)), greater_is_better=False)
+
+grid_math = GridSearchCV(xgb_math, param_grid=params, cv=5, scoring=scores)
+grid_reading = GridSearchCV(xgb_reading, param_grid=params, cv=5, scoring=scores)
+grid_writing = GridSearchCV(xgb_writing, param_grid=params, cv=5, scoring=scores)
+
+grid_math.fit(X_train, y_math_train)
+grid_reading.fit(X_train, y_reading_train)
+grid_writing.fit(X_train, y_reading_train)
+
+## Obtain the best hyperparameters
+
+math_best_params = grid_math.best_params_
+reading_best_params = grid_reading.best_params_
+writing_best_params = grid_writing.best_params_
+```
+```
+## Perform cross-validation and get predicted values
+
+math_preds = cross_val_predict(grid_math.best_estimator_, X_train, y_math_train, cv=5)
+reading_preds = cross_val_predict(grid_reading.best_estimator_, X_train, y_math_train, cv=5)
+writing_preds = cross_val_predict(grid_writing.best_estimator_, X_train, y_math_train, cv=5)
+```
+```
+## Print RMSE values
+
+rmse_math = np.sqrt(mean_squared_error(y_math_train, math_preds))
+rmse_reading = np.sqrt(mean_squared_error(y_reading_train, reading_preds))
+rmse_writing = np.sqrt(mean_squared_error(y_writing_train, writing_preds))
+
+print('RMSE Value for Math Scores:', rmse_math)
+print('RMSE Value for Reading Scores:', rmse_reading)
+print('RMSE Value for Writing Scores:', rmse_writing)
+```
+RMSE Value for Math Scores: 12.994796880123351
+RMSE Value for Reading Scores: 14.740659354449292
+RMSE Value for Writing Scores: 14.90092506353194
+```
+## Create a scatterplot to visualize actual versus predicted scores
+
+test_scores = {'Math':(y_math_train, math_preds),
+               'Reading':(y_reading_train, reading_preds),
+               'Writing':(y_writing_train, writing_preds)}
+
+plt.figure(figsize=(18,6))
+
+for i, (subj_score_name,(actual_score, predicted_score)) in enumerate(test_scores.items()):
+    plt.subplot(1,3, i+1)
+    plt.scatter(actual_score, predicted_score, s=8, alpha=0.5)
+    plt.title(f'{subj_score_name} Scores')
+    plt.xlabel("Actual Scores")
+    plt.ylabel("Predicted Scores")
+    lr = LinearRegression()
+    lr.fit(actual_score.values.reshape(-1,1), predicted_score)
+    plt.plot(actual_score, lr.predict(actual_score.values.reshape(-1,1)), color='red', linewidth=2)
+    
+plt.tight_layout()
+plt.show()
+```
