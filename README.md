@@ -819,4 +819,109 @@ df1b.groupby(['gender'])[['math_score','reading_score','writing_score']].agg(['m
   </tbody>
 </table>
 </div>
+- There are more female than male students. The difference is quite small as the female students are only 261 (1.20%) more than the male students.
+- Male students generally score higher in Math, while female students generally score higher in Reading and Writing.
 
+#### **2. Ethnic Group**
+```
+plt.subplots(1,1, figsize=(5,3))
+
+sns.countplot(data=df1b, x='ethnic_group')
+
+plt.show()
+
+df1b.groupby(['ethnic_group'])[['math_score','reading_score','writing_score']].agg(['mean','median'])
+```
+![image](https://github.com/ryanlacsamana/Exam_Scores_Prediction/assets/138304188/5be74153-ad35-4d2b-a646-e451b1264115)
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">math_score</th>
+      <th colspan="2" halign="left">reading_score</th>
+      <th colspan="2" halign="left">writing_score</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>mean</th>
+      <th>median</th>
+    </tr>
+    <tr>
+      <th>ethnic_group</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>group A</th>
+      <td>62.974699</td>
+      <td>64.0</td>
+      <td>66.709639</td>
+      <td>66.0</td>
+      <td>65.120482</td>
+      <td>65.0</td>
+    </tr>
+    <tr>
+      <th>group B</th>
+      <td>63.536916</td>
+      <td>64.0</td>
+      <td>67.347934</td>
+      <td>68.0</td>
+      <td>65.994581</td>
+      <td>66.0</td>
+    </tr>
+    <tr>
+      <th>group C</th>
+      <td>64.735345</td>
+      <td>65.0</td>
+      <td>68.518391</td>
+      <td>69.0</td>
+      <td>67.122845</td>
+      <td>67.0</td>
+    </tr>
+    <tr>
+      <th>group D</th>
+      <td>67.669339</td>
+      <td>68.0</td>
+      <td>70.515945</td>
+      <td>71.0</td>
+      <td>71.032425</td>
+      <td>71.0</td>
+    </tr>
+    <tr>
+      <th>group E</th>
+      <td>75.210526</td>
+      <td>76.0</td>
+      <td>74.266100</td>
+      <td>75.0</td>
+      <td>72.694671</td>
+      <td>73.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+- Students from Ethnic Group E have the highest scores from the 3 subjects.
+- The hierarchy of students based on exam scores is the same from all the 3 subjects - 1. group E, 2. group D, 3. group C, 4. group B, 5. group A (from highest to lowest). This is true for both the mean and median scores.
+- There seems to be a clear correlation between the ethnic group and the exam scores.
+
+#### **3. Parent's Educational Background**
+```
+plt.subplots(1,1, figsize=(5,3))
+
+sns.countplot(data=df1b, x='parents_education')
+plt.xticks(rotation=90)
+
+plt.show()
+
+df1b.groupby(['parents_education'])[['math_score','writing_score','reading_score']].agg(['mean','median'])
+```
